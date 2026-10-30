@@ -1,0 +1,22 @@
+metric,value,unit,source_note
+Capex total,7118174,USD,Paper; includes 10% PPN (VAT)
+Capex subtotal before PPN,6471067,USD,Paper
+PPN,647107,USD,Paper
+Project life base,24,months,Letter of Intent; option to extend to 5 years (not modelled)
+WACC base,9,percent,Paper; D:E 70:30
+Base NPV,500444.15,USD,Paper Table 8
+Base IRR,11.50,percent,Paper
+Base PI,1.08,ratio,Paper
+Base payback,1.57,years,Paper
+Worst scenario NPV,199076.29,USD,Paper Table 8 (assumptions not stated)
+Best scenario NPV,1239436.89,USD,Paper Table 8 (assumptions not stated)
+MC iterations,1000,count,Paper
+MC mean NPV,474346.30,USD,Paper
+MC median NPV,481496.58,USD,Paper
+MC SD NPV,375428.74,USD,Paper
+MC min NPV,-449661.21,USD,Paper
+MC max NPV,1434177.00,USD,Paper
+MC P(NPV<0),10.32,percent,Paper
+Annual O&M,1313322,USD,Paper
+Recommendation,Proceed with investment,text,Paper section 5.1
+Post-decision outcome,None reported,text,Paper is prospective

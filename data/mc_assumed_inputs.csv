@@ -1,0 +1,4 @@
+variable,distribution,min,mode,max,status
+Capex multiplier,Uniform,0.90,,1.10,ASSUMED (paper: uniform, bounds not stated)
+Project life (months),Uniform,18,,30,ASSUMED (paper: uniform, bounds not stated)
+Debt share,Triangular,0.60,0.70,0.80,ASSUMED (paper: triangular, bounds and mode not stated)

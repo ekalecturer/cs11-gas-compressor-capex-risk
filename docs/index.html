@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Feasibility Stress Test — Gas Compressor Capex, Maleo-Gorontalo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --blue:#2b6cb0; --dark:#1a202c; --gray:#4a5568; --bg:#f7fafc; --green:#2f855a; --gold:#d69e2e; --purple:#805ad5; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin:0; color:var(--dark); background:#fff; line-height:1.6; }
+  header { background:var(--dark); color:#fff; padding:56px 20px; }
+  header .kicker { color:#90cdf4; font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:13px; }
+  header h1 { font-size:32px; margin:10px 0 14px; max-width:760px; }
+  header p { max-width:680px; color:#cbd5e0; font-size:17px; }
+  .wrap { max-width:860px; margin:0 auto; padding:40px 20px; }
+  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; margin:28px 0; }
+  .stat { background:var(--bg); border-radius:10px; padding:18px; border:1px solid #e2e8f0; }
+  .stat .num { font-size:24px; font-weight:700; color:var(--blue); }
+  .stat .label { font-size:13px; color:var(--gray); margin-top:4px; }
+  h2 { font-size:21px; margin-top:40px; border-bottom:2px solid #e2e8f0; padding-bottom:8px; }
+  .btnrow { display:flex; gap:12px; flex-wrap:wrap; margin:24px 0; }
+  .btn { display:inline-block; background:var(--blue); color:#fff; text-decoration:none; padding:12px 20px; border-radius:8px; font-weight:600; border:none; cursor:pointer; font-size:15px; font-family:inherit; }
+  .btn.secondary { background:#fff; color:var(--blue); border:2px solid var(--blue); }
+  .callout { background:#fffbea; border-left:4px solid #d69e2e; padding:16px 20px; border-radius:6px; margin:20px 0; font-size:15px; }
+  .callout.good { background:#f0fff4; border-left-color:#38a169; }
+  .callout.bad { background:#fff5f5; border-left-color:#c53030; }
+  footer { text-align:center; color:var(--gray); font-size:13px; padding:40px 20px; }
+  a { color:var(--blue); }
+  table { border-collapse:collapse; width:100%; margin:16px 0; font-size:14px; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid #e2e8f0; }
+  th { color:var(--gray); font-weight:600; }
+  .sim-panel { background:var(--bg); border:1px solid #e2e8f0; border-radius:12px; padding:24px; margin:24px 0; }
+  .sliders { display:grid; grid-template-columns:1fr 1fr; gap:18px 28px; }
+  @media (max-width:640px) { .sliders { grid-template-columns:1fr; } }
+  .slider-row label { display:flex; justify-content:space-between; font-size:14px; font-weight:600; margin-bottom:4px; }
+  .slider-row .val { color:var(--blue); font-weight:700; }
+  .slider-row input[type=range], .slider-row select { width:100%; accent-color:var(--blue); font-family:inherit; font-size:14px; }
+  .sim-results { margin-top:28px; }
+  .sim-results.hidden { display:none; }
+  canvas { width:100%; height:260px; background:#fff; border:1px solid #e2e8f0; border-radius:8px; }
+  .disclosure { font-size:13px; color:var(--gray); margin-top:14px; }
+  .legend { display:flex; gap:18px; font-size:13px; margin-top:8px; flex-wrap:wrap; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .swatch { width:12px; height:3px; display:inline-block; }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">The Feasibility Stress Test — Case Study #11 · Capex Planning</div>
+  <h1>A US$7.1M Capex Decision Lives in Two Numbers</h1>
+  <p>A Monte Carlo reconstruction of a published Indonesian investment evaluation: a gas compressor for a 4 x 25 MW plant in Gorontalo, NPV of US$500,444 on US$7,118,174 of capex.</p>
+</header>
+<div class="wrap">
+
+<div class="callout good"><strong>Note:</strong> the paper's full text was read through automated extraction of the publisher page, not a manual PDF review. This is disclosed here and in the README.</div>
+
+<h2>The confirmed findings</h2>
+<div class="stat-grid">
+  <div class="stat"><div class="num">$500,444</div><div class="label">Base NPV at 9% WACC: 7.0% of US$7.12M capex</div></div>
+  <div class="stat"><div class="num">$32,019</div><div class="label">NPV with capex +10% (-93.6%)</div></div>
+  <div class="stat"><div class="num">$93,955</div><div class="label">NPV if the contract runs 18 months, not 24</div></div>
+  <div class="stat"><div class="num">10.32%</div><div class="label">Paper's reported P(NPV &lt; 0), 1,000 iterations</div></div>
+</div>
+
+<p>Source: Siregar, A. &amp; Wiryono, S. (2021). <em>Implementation Monte Carlo Simulation in Investment Evaluation: Case Study - Gas Compressor Investment PLTG 4 x 25 MW Maleo-Gorontalo.</em> ICAESS 2021, pp. 72-79. SCITEPRESS. <a href="https://doi.org/10.5220/0010935100003255">DOI</a></p>
+
+<h2>The paper's one-at-a-time sensitivities (US$)</h2>
+<table>
+<tr><th>Driver</th><th>Low case</th><th>Base</th><th>High case</th></tr>
+<tr><td>Capex (-10% / +10%)</td><td>968,869</td><td>500,444</td><td>32,019</td></tr>
+<tr><td>Contract life (18 / 24 / 30 months)</td><td>93,955</td><td>500,444</td><td>879,563</td></tr>
+<tr><td>Debt:equity (60:40 / 70:30 / 80:20)</td><td>350,429</td><td>500,444</td><td>655,908</td></tr>
+</table>
+
+<div class="callout bad"><strong>Honest caveat:</strong> the paper does not publish its cash flows, tariff, tax rate, depreciation, the numeric Monte Carlo bounds or the triangular mode. This is <strong>not</strong> a cash-flow rebuild. NPV is the base case plus three effects, each interpolated through the table above, and the effects are assumed to add. The default simulation bounds are the sensitivity ranges, which is my assumption. Use it to see which inputs carry the risk, not as evidence about the real project. The paper reports no outcome after the decision.</div>
+
+<h2>Run your own simulation</h2>
+<p>Set the ranges, then run 5,000 trials. Capex is sampled uniform (as in the paper's Table 9) or normal with the same variance (Box-Muller). Contract life is uniform; debt share is triangular by inverse-transform sampling. The run also reports what happens if capex or contract life were fixed. The drivers are independent, so no copula is needed.</p>
+
+<div class="sim-panel">
+  <div class="sliders">
+    <div class="slider-row"><label>Capex range <span class="val" id="v_cx">±10%</span></label><input type="range" id="cx" min="0" max="15" step="1" value="10"></div>
+    <div class="slider-row"><label>Systematic capex bias <span class="val" id="v_bias">+0%</span></label><input type="range" id="bias" min="0" max="15" step="1" value="0"></div>
+    <div class="slider-row"><label>Contract life, low <span class="val" id="v_l0">18 mo</span></label><input type="range" id="l0" min="18" max="24" step="1" value="18"></div>
+    <div class="slider-row"><label>Contract life, high <span class="val" id="v_l1">30 mo</span></label><input type="range" id="l1" min="24" max="30" step="1" value="30"></div>
+    <div class="slider-row"><label>Debt share, low <span class="val" id="v_d0">60%</span></label><input type="range" id="d0" min="60" max="70" step="1" value="60"></div>
+    <div class="slider-row"><label>Debt share, high <span class="val" id="v_d1">80%</span></label><input type="range" id="d1" min="70" max="80" step="1" value="80"></div>
+    <div class="slider-row"><label>Capex distribution</label><select id="shape"><option value="u">Uniform (paper's Table 9)</option><option value="n">Normal, same variance (Box-Muller)</option></select></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="runBtn">Run simulation (5,000 trials)</button></div>
+
+  <div class="sim-results hidden" id="results">
+    <div class="stat-grid">
+      <div class="stat"><div class="num" id="r_mean">—</div><div class="label">Mean NPV (US$)</div></div>
+      <div class="stat"><div class="num" id="r_p5">—</div><div class="label">5th percentile NPV (US$)</div></div>
+      <div class="stat"><div class="num" id="r_ploss">—</div><div class="label">P(NPV &lt; 0)</div></div>
+      <div class="stat"><div class="num" id="r_sd">—</div><div class="label">Standard deviation (US$)</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num" id="r_fixc">—</div><div class="label">P(NPV &lt; 0) if capex were fixed at base</div></div>
+      <div class="stat"><div class="num" id="r_fixl">—</div><div class="label">P(NPV &lt; 0) if life were fixed at 24 months</div></div>
+    </div>
+    <canvas id="hist" width="800" height="260"></canvas>
+    <div class="legend">
+      <span><span class="swatch" style="background:#c53030"></span>break-even</span>
+      <span><span class="swatch" style="background:#d69e2e"></span>paper's base NPV</span>
+      <span><span class="swatch" style="background:#2f855a"></span>simulated mean</span>
+    </div>
+    <div class="disclosure">Browser-side reconstruction mirroring the notebook: piecewise-linear response surface through the paper's Table 7, additive effects. Bias or ranges beyond ±10% capex extrapolate the paper's line. Not the authors' workbook.</div>
+  </div>
+</div>
+
+<h2>Explore</h2>
+<div class="btnrow">
+  <a class="btn secondary" href="notebook.html">View the full Python notebook</a>
+  <a class="btn secondary" href="https://github.com/ekalecturer/cs11-gas-compressor-capex-risk">View source on GitHub</a>
+</div>
+
+<h2>The lesson</h2>
+<p>A project that earns 7% of its capex in NPV has little room. In this reconstruction, capex explains 58% of the variance in NPV, contract life 39% and the debt mix 3%. Fixing capex cuts the modelled loss probability from about 9% to under 1%. The paper reports no post-decision outcome, so this is a decision rule, not a result.</p>
+
+</div>
+<footer>Part of <strong>The Feasibility Stress Test</strong> — real Monte Carlo and financial-engineering case studies for capex decisions.</footer>
+
+<script>
+function randNormalStd(){ let u1=Math.random()||1e-9,u2=Math.random(); return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2); } // Box-Muller
+function triInv(u,a,m,b){ const fc=(m-a)/(b-a); if(b===a) return m; return u<fc ? a+Math.sqrt(u*(b-a)*(m-a)) : b-Math.sqrt((1-u)*(b-a)*(b-m)); } // inverse-transform
+const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
+function interp(x,xs,ys){ if(x<=xs[0]) return ys[0]+(x-xs[0])*(ys[1]-ys[0])/(xs[1]-xs[0]); const n=xs.length; if(x>=xs[n-1]) return ys[n-1]+(x-xs[n-1])*(ys[n-1]-ys[n-2])/(xs[n-1]-xs[n-2]); for(let i=1;i<n;i++){ if(x<=xs[i]) return ys[i-1]+(x-xs[i-1])*(ys[i]-ys[i-1])/(xs[i]-xs[i-1]); } }
+
+// ---- Response surface from paper Table 7 ----
+const BASE=500444.15, PAPER_MEAN=474346.30;
+const CX=[-0.10,0,0.10], CY=[968869-BASE,0,32019.20-BASE];
+const LX=[18,24,30], LY=[93955-BASE,0,879563-BASE];
+const DX=[0.60,0.70,0.80], DY=[350429-BASE,0,655908-BASE];
+const npv=(cm,life,debt)=>BASE+interp(cm-1,CX,CY)+interp(life,LX,LY)+interp(debt,DX,DY);
+
+const labels={ cx:v=>"±"+v+"%", bias:v=>"+"+v+"%", l0:v=>v+" mo", l1:v=>v+" mo", d0:v=>v+"%", d1:v=>v+"%" };
+Object.keys(labels).forEach(id=>{ const el=document.getElementById(id), out=document.getElementById("v_"+id); el.addEventListener("input",()=>out.textContent=labels[id](el.value)); });
+
+function drawHistogram(canvas, values, markers){
+  const ctx=canvas.getContext("2d"), W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  let min=Infinity,max=-Infinity; values.forEach(v=>{if(v<min)min=v;if(v>max)max=v;}); markers.forEach(m=>{if(m.x<min)min=m.x;if(m.x>max)max=m.x;});
+  const bins=40, counts=new Array(bins).fill(0), w=(max-min)/bins||1;
+  values.forEach(v=>{let i=Math.floor((v-min)/w); if(i>=bins)i=bins-1; if(i<0)i=0; counts[i]++;});
+  const mc=Math.max(...counts), pad=10, pw=W-2*pad, ph=H-2*pad, bw=pw/bins;
+  ctx.fillStyle="#805ad5"; counts.forEach((c,i)=>{const h=c/mc*ph; ctx.fillRect(pad+i*bw,H-pad-h,bw-1,h);});
+  markers.forEach(m=>{ const x=pad+(m.x-min)/(max-min)*pw; ctx.strokeStyle=m.color; ctx.lineWidth=2; ctx.setLineDash([5,4]); ctx.beginPath(); ctx.moveTo(x,pad); ctx.lineTo(x,H-pad); ctx.stroke(); ctx.setLineDash([]); });
+}
+const fmt=x=>"$"+Math.round(x).toLocaleString("en-US");
+const pct=(a)=>(a.filter(x=>x<0).length/a.length*100).toFixed(1)+"%";
+
+document.getElementById("runBtn").addEventListener("click",()=>{
+  const N=5000, g=id=>parseFloat(document.getElementById(id).value);
+  const cxr=g("cx")/100, bias=g("bias")/100, l0=g("l0"), l1=g("l1"), d0=g("d0")/100, d1=g("d1")/100, shape=document.getElementById("shape").value;
+  const v=[], vFixC=[], vFixL=[];
+  for(let i=0;i<N;i++){
+    let dev;
+    if(shape==="u") dev=(Math.random()*2-1)*cxr;
+    else dev=randNormalStd()*cxr/Math.sqrt(3);          // same variance as U(-r,r)
+    const cm=1+bias+dev;
+    const life=l0+Math.random()*(l1-l0);
+    const debt=triInv(Math.random(),d0,0.70,d1);
+    v.push(npv(cm,life,debt)); vFixC.push(npv(1,life,debt)); vFixL.push(npv(cm,24,debt));
+  }
+  const m=mean(v), sd=Math.sqrt(v.reduce((s,x)=>s+(x-m)*(x-m),0)/(N-1)), sorted=[...v].sort((a,b)=>a-b);
+  document.getElementById("r_mean").textContent=fmt(m);
+  document.getElementById("r_p5").textContent=fmt(sorted[Math.floor(0.05*N)]);
+  document.getElementById("r_ploss").textContent=pct(v);
+  document.getElementById("r_sd").textContent=fmt(sd);
+  document.getElementById("r_fixc").textContent=pct(vFixC);
+  document.getElementById("r_fixl").textContent=pct(vFixL);
+  document.getElementById("results").classList.remove("hidden");
+  drawHistogram(document.getElementById("hist"), v, [{x:0,color:"#c53030"},{x:BASE,color:"#d69e2e"},{x:m,color:"#2f855a"}]);
+});
+</script>
+</body>
+</html>

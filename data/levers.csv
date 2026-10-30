@@ -1,0 +1,7 @@
+scenario,mean_npv,sd_npv,p5_npv,p_npv_lt_0
+As modelled,497783.62,359731.21,-101991.16,0.093
+Capex fixed at base,492144.56,235023.58,121871.06,0.002
+Life guaranteed at 24 mo,504277.54,277606.15,68994.80,0.011
+Both fixed,500746.46,62196.99,398151.25,0.000
+Capex bias +5% (extrapolated),292372.50,,,0.209
+Capex bias +10% (extrapolated),145215.82,,,0.325
